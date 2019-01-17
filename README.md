@@ -1,5 +1,5 @@
-# yumonclearlinux
-Script to enable basic yum functionality on Intel Clear Linux.
+# dnfonclearlinux
+Script to enable basic dnf functionality on Intel Clear Linux.
 
 **Proof of concept. This _will_ probably break your swupd.** Run in a container or VM.
 
@@ -17,37 +17,33 @@ Overall I find the flatpak apps to be slow compared to normal Linux distro binar
 
 ### Solution
 
-Intel Clear Linux includes yum in the [os-clr-on-clr](https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr) bundle that can be set up with repos, including a handy [Intel Clear Linux yum-compatible repo](https://download.clearlinux.org/current/x86_64/os/). This allows *basic* yum functionality (see Known Issues) and greater package granularity than the official Intel Clear Linux bundle approach.
+Intel Clear Linux includes dnf in the [package-utils](https://github.com/clearlinux/clr-bundles/blob/master/bundles/package-utils) bundle that can be set up with repos, including a handy [Intel Clear Linux dnf-compatible repo](https://download.clearlinux.org/current/x86_64/os/). This allows *basic* dnf functionality (see Known Issues) and greater package granularity than the official Intel Clear Linux bundle approach.
 
 ### Why Should I Care?
 
 This allows you to:
 
 * Install specific packages in Intel Clear Linux, from Intel Clear Linux repo's containing optimized binaries, without having to install an entire bundle.
-* Install third-party yum repos and rpms and fulfill their dependencies with Intel Clear Linux optimized binaries, e.g. LibreOffice 6. 
+* Install third-party dnf repos and rpms and fulfill their dependencies with Intel Clear Linux optimized binaries, e.g. LibreOffice 6.
 
 ### Installation
 
 ```
-git clone https://github.com/sirredbeard/yumonclearlinux.git
-cd yumonclearlinux
-nano yum.conf	#make edits as necessary
-chmod u+x setup-yum.sh
-./setup-yum.sh	#run script
+git clone https://github.com/yewwayne/dnfonclearlinux.git
+cd dnfonclearlinux
+nano dnf.conf	# make edits as necessary
+chmod u+x setup-dnf.sh
+sudo ./setup-dnf.sh	# run script
 ```
- 
+
 ### Known Working
 
-* Visual Studio Code (via Microsoft's yum repo)
-* Enpass (download executable from website, install dependencies with yum install libXScrnSaver lsof)
-* EPEL 7 repo
+* None so far
 
 ### Known Issues
 
 * **This will probably break your swupd.**
-* yum-config-manager doesn't work, fails with "ImportError: No module named iniparse" despite installation of iniparse, python-iniparse, and python3-iniparse. **Workaround**: Edit /etc/yum.conf directly.
-* Adding any of the Fedora project's yum repos, 25-27, tries to install a bunch of packages with dependencies issues, wreaks havoc on the machine.
-* Uninstalling python3 breaks yum, requiring a reinstall of Clear Linux. *You have been warned.*
+* Uninstalling python3 breaks dnf, requiring a reinstall of Clear Linux. *You have been warned.*
 
 ### To Do
 
@@ -57,4 +53,4 @@ chmod u+x setup-yum.sh
 
 ## Caution
 
-Installing packages using yum instead of swupd is not officially supported on Intel Clear Linux and can and will break your system, swupd, and cause data loss. It should only be used for very specific use-cases after thorough testing in a non-production machine. In general it's going to be safer to install an extra bundle than to resort to this.
+Installing packages using dnf instead of swupd is not officially supported on Intel Clear Linux and can and will break your system, swupd, and cause data loss. It should only be used for very specific use-cases after thorough testing in a non-production machine. In general it's going to be safer to install an extra bundle than to resort to this.
