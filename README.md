@@ -49,8 +49,9 @@ Clear Linux provides no such package, therefore all dnf invocations must include
 
 ### Known Issues
 
-* **This will probably break your swupd.** For starters, swupd loses track of which version of Clear Linux is installed after a couple of dnf installs.
-* Uninstalling python3 breaks dnf, requiring a reinstall of Clear Linux. *You have been warned.*
+* **Swupd shows "Installed version: 1" after dnf install**: Swupd detects current version by reading VERSION_ID from `/usr/lib/os-release`. Most likely dnf installed "filesystem" package that replaces VERSION_ID with 1.  
+  Fix: `sed -i 's/^\(VERSION_ID=\).*/\1'$(</usr/share/clear/version)/ /usr/lib/os-release`
+* Removing a package also removes its unused dependencies, which could end up removing parts of swupd's installed bundles. This can be repaired with `swupd verify --fix --picky`.
 
 ### To Do
 
